@@ -1,0 +1,58 @@
+Rails Layout Extension, release 0.5.1 (Mar. 2009)
+
+Feature
+=======
+1. simplifying content_for usage by extracting key/value pair from content_for data like YAML and setting them as content_for variables
+   简化content_for的使用，采用类似YAML的key/value方式定义content_for变量
+2. let erb file can determine layout by changing the default behavior of layout determining, just like java's sitemesh
+   通过改变默认的layout获取方式，使erb也可以定义layout，类似java的sitemesh
+3. use controller method if helper method requested from erb not exists
+   ERB请求helper的方法不存在，则自动调用controller的方法
+4. support theme template for field tag
+   支持field tag的主题模板
+
+Setup
+=======
+1. rlayout as gem
+put the following line into your rails initializer, or bottom of environment.rb
+把下列这行代码加到rails的initializer里，或者environment.rb的最后
+require 'rlayout'
+
+2. rlayout as plugin
+nothing need to do
+不需要做什么了
+
+Usage
+=======
+
+1. simplifying content_for
+
+<% content_for :config do %>
+title: This is my title
+panel: This is my panel
+<% end %> 
+
+that will do the same thing as the following:
+
+<%- content_for :title do -%>
+This is my title
+<%- end -%> 
+<%- content_for :panel do -%>
+This is my panel
+<%- end -%> 
+
+2. determining layout in erb file
+<% content_for :config do %>
+#note：key layout won't be transferred to a content_for variable, it is only used to determine a view layout
+layout: happy
+<% end %> 
+
+3. use theme template of field tag
+
+class YourController
+  form_theme :xhtml
+end
+
+and see related code in folder "example/templates", the theme can be defined in tag with :theme, that will override theme definition in controller
+
+Copyright (c) 2008 Leon Li, released under the MIT license

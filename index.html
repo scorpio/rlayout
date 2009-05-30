@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=gb2312">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 2.2  (Win32)">
+	<META NAME="CREATED" CONTENT="20080617;9501531">
+	<META NAME="CHANGED" CONTENT="20080617;9511733">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { size: 21cm 29.7cm; margin: 2cm }
+		P { margin-bottom: 0.21cm }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="zh-CN" DIR="LTR">
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Thorndale, serif"><SPAN LANG="en-US">Rails
+Layout Extension, release 0.3.0 (Jun. 2008)<BR><BR>Feature<BR>=======<BR>1.
+simplifying content_for usage by extracting key/value pair from
+content_for data like YAML and setting them as content_for variables<BR>
+  </SPAN></FONT>简化<FONT FACE="Thorndale, serif"><SPAN LANG="en-US">content_for</SPAN></FONT>的使用，采用类似<FONT FACE="Thorndale, serif"><SPAN LANG="en-US">YAML</SPAN></FONT>的<FONT FACE="Thorndale, serif"><SPAN LANG="en-US">key/value</SPAN></FONT>方式定义<FONT FACE="Thorndale, serif"><SPAN LANG="en-US">content_for</SPAN></FONT>变量<FONT FACE="Thorndale, serif"><SPAN LANG="en-US"><BR>2.
+let erb file can determine layout by changing the default behavior of
+layout determining, just like java's sitemesh<BR>  
+</SPAN></FONT>通过改变默认的<FONT FACE="Thorndale, serif"><SPAN LANG="en-US">layout</SPAN></FONT>获取方式，使<FONT FACE="Thorndale, serif"><SPAN LANG="en-US">erb</SPAN></FONT>也可以定义<FONT FACE="Thorndale, serif"><SPAN LANG="en-US">layout</SPAN></FONT>，类似<FONT FACE="Thorndale, serif"><SPAN LANG="en-US">java</SPAN></FONT>的<FONT FACE="Thorndale, serif"><SPAN LANG="en-US">sitemesh<BR>3.
+use controller method if helper method requested from erb not exists<BR>
+  ERB</SPAN></FONT>请求<FONT FACE="Thorndale, serif"><SPAN LANG="en-US">helper</SPAN></FONT>的方法不存在，则自动调用<FONT FACE="Thorndale, serif"><SPAN LANG="en-US">controller</SPAN></FONT>的方法<FONT FACE="Thorndale, serif"><SPAN LANG="en-US"><BR>4.
+support theme template for field tag<BR>   </SPAN></FONT>支持<FONT FACE="Thorndale, serif"><SPAN LANG="en-US">field
+tag</SPAN></FONT>的主题模板<FONT FACE="Thorndale, serif"><SPAN LANG="en-US"><BR><BR>Setup<BR>=======<BR>1.
+rlayout as gem<BR>put the following line into your rails initializer,
+or bottom of
+environment.rb<BR></SPAN></FONT>把下列这行代码加到<FONT FACE="Thorndale, serif"><SPAN LANG="en-US">rails</SPAN></FONT>的<FONT FACE="Thorndale, serif"><SPAN LANG="en-US">initializer</SPAN></FONT>里，或者<FONT FACE="Thorndale, serif"><SPAN LANG="en-US">environment.rb</SPAN></FONT>的最后<FONT FACE="Thorndale, serif"><SPAN LANG="en-US"><BR>require
+'rlayout'<BR><BR>2. rlayout as plugin<BR>nothing need to
+do<BR></SPAN></FONT>不需要做什么了<FONT FACE="Thorndale, serif"><SPAN LANG="en-US"><BR><BR>Usage<BR>=======<BR><BR>1.
+simplifying content_for<BR><BR>&lt;% content_for :config do %&gt;<BR>title:
+This is my title<BR>panel: This is my panel<BR>&lt;% end %&gt; <BR><BR>that
+will do the same thing as the following:<BR><BR>&lt;%- content_for
+:title do -%&gt;<BR>This is my title<BR>&lt;%- end -%&gt; <BR>&lt;%-
+content_for :panel do -%&gt;<BR>This is my panel<BR>&lt;%- end -%&gt;
+<BR><BR>2. determining layout in erb file<BR>&lt;% content_for
+:config do %&gt;<BR>#note</SPAN></FONT>：<FONT FACE="Thorndale, serif"><SPAN LANG="en-US">key
+layout won't be transferred to a content_for variable, it is only
+used to determine a view layout<BR>layout: happy<BR>&lt;% end %&gt;
+<BR><BR>3. use theme template of field tag<BR><BR>class
+YourController<BR>  form_theme :xhtml<BR>end<BR><BR>and see related
+code in folder &quot;example/templates&quot;, the theme can be
+defined in tag with :theme, that will override theme definition in
+controller<BR><BR>Copyright (c) 2008 Leon Li, released under the MIT
+license<BR></SPAN></FONT><BR>
+</P>
+</BODY>
+</HTML>

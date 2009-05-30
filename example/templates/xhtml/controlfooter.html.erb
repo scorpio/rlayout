@@ -1,0 +1,8 @@
+  </td>
+</tr>
+<% if field_context[:hidden][:desc] %>
+<tr>
+	<td></td>
+	<td align="left"><%= _(("field.#{field_context[:simple_name]}.#{field_context[:method_name]}.desc"), :default => '') %></td>
+</tr>
+<% end %>

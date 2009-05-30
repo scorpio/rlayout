@@ -1,0 +1,8 @@
+<tr>
+<td class="tdLabel" nowrap  valign="top">
+  <label for="loginName" class="label">
+  <% if field_context[:hidden][:require] %><span class="requiredstar"><img src="/images/mustNeeded.gif" /></span><% end %>
+  <%= _("field.#{field_context[:simple_name]}.#{field_context[:method_name]}") %>: 
+  </label>
+  </td>
+  <td
