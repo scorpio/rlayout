@@ -1,3 +1,6 @@
+Changes in version 0.5.4 (2009-6-25)
+process head for config_for seperately
+
 Changes in version 0.5.3 (2009-5-25)
 improve error handling and layout picking
 

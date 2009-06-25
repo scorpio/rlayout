@@ -87,28 +87,40 @@ module Rlayout
           @content_for_layout = render(options)
 
           # #part 1 start to add for extract layout from page
-          pagel_layout = params[LAYOUT_PARAMETER] unless params[LAYOUT_PARAMETER].nil?
+          page_layout = params[LAYOUT_PARAMETER] unless params[LAYOUT_PARAMETER].nil?
           unless @content_for_config.nil?
             @content_for_config.strip!
             @content_for_config.split("\n").each do |pair|
-              next unless pair.index(":")
-              seperator_index = pair.index(":") - 1
+              next unless pair.index(": ")
+              seperator_index = pair.index(": ") - 1
               key = pair[0..seperator_index]
               value = pair[(seperator_index + 2)..pair.length] || ''
               value.strip!
               if key == 'layout'
-                pagel_layout = value if pagel_layout.nil? || pagel_layout.empty?
+                page_layout = value if page_layout.nil? || page_layout.empty?
               else
-                if key == 'head' && value =~ /<meta\s*name=["']?layout["']?\s*content=["']([^"']+)/
-                  pagel_layout = $1
-                end
                 instance_variable_set("@content_for_#{key}", value)
               end
             end
           end
+
+          unless @content_for_head.nil?
+            @content_for_head.strip!
+            @content_for_head.split("\n").each do |pair|
+              next unless pair.index(": ")
+              seperator_index = pair.index(": ") - 1
+              key = pair[0..seperator_index]
+              value = pair[(seperator_index + 2)..pair.length] || ''
+              value.strip!
+              value.scan(/<meta\s*name=["']?([^"']+)["']?\s*content=["']([^"']*)["'][^>]*>/) do |meta|
+                instance_variable_set("@content_for_#{meta[0]}", meta[1])
+                page_layout = meta[1] if meta[0] == 'layout'
+              end
+            end
+          end
           
-          unless pagel_layout == 'false'
-            partial_layout = active_layout(pagel_layout) if pagel_layout.present?
+          unless page_layout == 'false'
+            partial_layout = active_layout(page_layout) if page_layout.present?
             # #part 1 end to add for extract layout from page
             if (options[:inline] || options[:file] || options[:text])
               @cached_content_for_layout = @content_for_layout
